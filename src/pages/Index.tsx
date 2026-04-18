@@ -59,7 +59,7 @@ export default function Index() {
 
       {/* ===== SIDEBAR ===== */}
       <aside className="relative z-20 w-64 shrink-0 min-h-screen flex flex-col"
-        style={{ background: "rgba(20,12,5,0.7)", borderRight: "1px solid rgba(249,115,22,0.12)" }}>
+        style={{ background: "rgba(255,250,245,0.9)", borderRight: "1px solid rgba(249,115,22,0.15)" }}>
 
         {/* Logo / brand */}
         <div className="px-6 pt-8 pb-6 border-b border-orange-500/10">
