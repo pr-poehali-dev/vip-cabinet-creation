@@ -13,33 +13,9 @@ const tabs = [
   { id: "support" as Tab, label: "Поддержка", icon: "MessageCircle" },
 ];
 
-const faqs = [
-  {
-    q: "Как изменить тарифный план?",
-    a: "Перейдите в раздел «Мои подписки» и нажмите «Сменить тариф». Переход происходит мгновенно, разница в стоимости пересчитывается автоматически.",
-  },
-  {
-    q: "Как получить счёт для бухгалтерии?",
-    a: "Счета и акты формируются автоматически после каждого платежа и отправляются на ваш email. Также их можно скачать в разделе истории платежей.",
-  },
-  {
-    q: "Что происходит при отмене подписки?",
-    a: "Доступ ко всем функциям сохраняется до конца оплаченного периода. После истечения проект переходит в режим «Только чтение».",
-  },
-  {
-    q: "Можно ли получить возврат средств?",
-    a: "Да, в течение 14 дней с момента оплаты. Для оформления возврата напишите в поддержку с указанием номера платежа.",
-  },
-  {
-    q: "Как привязать свой домен?",
-    a: "В настройках проекта выберите «Опубликовать → Привязать домен», введите ваш домен и следуйте инструкции по настройке DNS-записей.",
-  },
-];
-
 export default function Index() {
   const [activeTab, setActiveTab] = useState<Tab>("profile");
   const [profileTab, setProfileTab] = useState<ProfileTab>("info");
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [editing, setEditing] = useState(false);
   const [supportSent, setSupportSent] = useState(false);
 
@@ -404,138 +380,93 @@ export default function Index() {
 
             {/* ===== ПОДДЕРЖКА ===== */}
             {activeTab === "support" && (
-              <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-                {/* Left: форма + способы связи */}
-                <div className="lg:col-span-3 space-y-5">
-                  <div className="glass rounded-3xl p-6 hover-lift">
-                    <h2 className="font-display font-bold text-xl text-foreground mb-1">Написать сообщение</h2>
-                    <p className="text-sm text-muted-foreground mb-6">Ответим в течение 2 часов (пн–пт, 9–18 МСК)</p>
+              <div className="space-y-5 max-w-2xl">
+                {/* Форма */}
+                <div className="glass rounded-3xl p-6 hover-lift">
+                  <h2 className="font-display font-bold text-xl text-foreground mb-1">Написать сообщение</h2>
+                  <p className="text-sm text-muted-foreground mb-6">Ответим в течение 2 часов (пн–пт, 9–18 МСК)</p>
 
-                    {!supportSent ? (
-                      <div className="space-y-4">
-                        <div>
-                          <label className="text-xs text-muted-foreground font-display uppercase tracking-wider mb-2 block">Тема обращения</label>
-                          <select className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-foreground text-sm outline-none focus:border-orange-500/50 transition-all appearance-none cursor-pointer">
-                            <option value="" className="bg-[#110c05]">Выберите тему</option>
-                            <option value="billing" className="bg-[#110c05]">Вопрос по оплате</option>
-                            <option value="tech" className="bg-[#110c05]">Техническая проблема</option>
-                            <option value="account" className="bg-[#110c05]">Вопрос по аккаунту</option>
-                            <option value="tariff" className="bg-[#110c05]">Вопрос по тарифу</option>
-                            <option value="other" className="bg-[#110c05]">Другое</option>
-                          </select>
-                        </div>
-                        <div>
-                          <label className="text-xs text-muted-foreground font-display uppercase tracking-wider mb-2 block">Сообщение</label>
-                          <textarea rows={5} placeholder="Опишите вашу проблему или вопрос..."
-                            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-foreground text-sm outline-none focus:border-orange-500/50 transition-all resize-none placeholder:text-muted-foreground/50" />
-                        </div>
-                        <div>
-                          <label className="text-xs text-muted-foreground font-display uppercase tracking-wider mb-2 block">Приоритет</label>
-                          <div className="flex gap-2">
-                            {[
-                              { label: "Обычный", color: "text-blue-400 border-blue-400/30 bg-blue-400/8" },
-                              { label: "Срочный", color: "text-orange-400 border-orange-400/30 bg-orange-400/8" },
-                              { label: "Критический", color: "text-red-400 border-red-400/30 bg-red-400/8" },
-                            ].map((p, i) => (
-                              <label key={p.label} className="flex-1 cursor-pointer">
-                                <input type="radio" name="priority" defaultChecked={i === 0} className="sr-only peer" />
-                                <div className={`text-center py-2 px-3 rounded-xl border text-xs font-display font-semibold transition-all peer-checked:ring-2 peer-checked:ring-orange-500/40 ${p.color} cursor-pointer`}>
-                                  {p.label}
-                                </div>
-                              </label>
-                            ))}
-                          </div>
-                        </div>
-                        <button onClick={() => setSupportSent(true)}
-                          className="w-full py-3 rounded-xl bg-gradient-to-r from-orange-500 via-red-500 to-amber-400 text-white font-display font-bold text-sm hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
-                          <Icon name="Send" size={15} />
-                          Отправить обращение
-                        </button>
+                  {!supportSent ? (
+                    <div className="space-y-4">
+                      <div>
+                        <label className="text-xs text-muted-foreground font-display uppercase tracking-wider mb-2 block">Тема обращения</label>
+                        <select className="w-full bg-white/40 border border-orange-200 rounded-xl px-4 py-3 text-foreground text-sm outline-none focus:border-orange-500/50 transition-all appearance-none cursor-pointer">
+                          <option value="">Выберите тему</option>
+                          <option value="billing">Вопрос по оплате</option>
+                          <option value="tech">Техническая проблема</option>
+                          <option value="account">Вопрос по аккаунту</option>
+                          <option value="tariff">Вопрос по тарифу</option>
+                          <option value="other">Другое</option>
+                        </select>
                       </div>
-                    ) : (
-                      <div className="text-center py-8">
-                        <div className="w-16 h-16 rounded-2xl bg-green-500/20 border border-green-500/30 flex items-center justify-center mx-auto mb-4">
-                          <Icon name="CheckCircle" size={28} className="text-green-400" />
+                      <div>
+                        <label className="text-xs text-muted-foreground font-display uppercase tracking-wider mb-2 block">Приоритет</label>
+                        <div className="flex gap-2">
+                          {[
+                            { label: "Обычный", icon: "Clock", color: "text-blue-600 border-blue-300 bg-blue-50", ring: "peer-checked:ring-blue-400/50 peer-checked:bg-blue-100 peer-checked:border-blue-400" },
+                            { label: "Срочный", icon: "AlertTriangle", color: "text-orange-600 border-orange-300 bg-orange-50", ring: "peer-checked:ring-orange-400/50 peer-checked:bg-orange-100 peer-checked:border-orange-400" },
+                            { label: "Критический", icon: "AlertOctagon", color: "text-red-600 border-red-300 bg-red-50", ring: "peer-checked:ring-red-400/50 peer-checked:bg-red-100 peer-checked:border-red-400" },
+                          ].map((p, i) => (
+                            <label key={p.label} className="flex-1 cursor-pointer">
+                              <input type="radio" name="priority" defaultChecked={i === 0} className="sr-only peer" />
+                              <div className={`flex flex-col items-center gap-1 py-3 px-2 rounded-xl border text-xs font-display font-semibold transition-all peer-checked:ring-2 ${p.color} ${p.ring} cursor-pointer`}>
+                                <Icon name={p.icon as IconName} size={16} />
+                                {p.label}
+                              </div>
+                            </label>
+                          ))}
                         </div>
-                        <p className="font-display font-bold text-lg text-foreground mb-1">Обращение отправлено!</p>
-                        <p className="text-sm text-muted-foreground mb-5">Номер обращения: <span className="text-orange-400 font-medium">#SUP-2847</span></p>
-                        <button onClick={() => setSupportSent(false)}
-                          className="px-5 py-2.5 rounded-xl glass text-muted-foreground hover:text-foreground font-display font-semibold text-sm transition-all">
-                          Новое обращение
-                        </button>
                       </div>
-                    )}
-                  </div>
-
-                  {/* Способы связи */}
-                  <div className="glass rounded-3xl p-6 hover-lift">
-                    <h3 className="font-display font-bold text-lg text-foreground mb-4 flex items-center gap-2">
-                      <Icon name="Phone" size={17} className="text-orange-400" />
-                      Другие способы связи
-                    </h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      {[
-                        { icon: "Send", label: "Telegram", value: "@support_bot", desc: "Быстрые ответы онлайн", color: "from-blue-400 to-cyan-400", bg: "bg-blue-500/8 border-blue-500/15" },
-                        { icon: "Mail", label: "Email", value: "help@company.ru", desc: "Для официальных запросов", color: "from-orange-400 to-amber-400", bg: "bg-orange-500/8 border-orange-500/15" },
-                        { icon: "Phone", label: "Телефон", value: "+7 (800) 555-35-35", desc: "Пн–Пт, 9:00–18:00 МСК", color: "from-green-400 to-emerald-400", bg: "bg-green-500/8 border-green-500/15" },
-                        { icon: "MessageSquare", label: "ВКонтакте", value: "vk.com/company", desc: "Сообщество поддержки", color: "from-indigo-400 to-blue-400", bg: "bg-indigo-500/8 border-indigo-500/15" },
-                      ].map((c) => (
-                        <div key={c.label} className={`flex items-center gap-3 p-4 rounded-2xl border ${c.bg} hover-lift cursor-pointer transition-all`}>
-                          <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${c.color} flex items-center justify-center shrink-0`}>
-                            <Icon name={c.icon as IconName} size={17} className="text-white" />
-                          </div>
-                          <div className="min-w-0">
-                            <p className="font-display font-bold text-sm text-foreground">{c.label}</p>
-                            <p className="text-xs text-muted-foreground truncate">{c.value}</p>
-                            <p className="text-[10px] text-muted-foreground/60 mt-0.5">{c.desc}</p>
-                          </div>
-                        </div>
-                      ))}
+                      <div>
+                        <label className="text-xs text-muted-foreground font-display uppercase tracking-wider mb-2 block">Сообщение</label>
+                        <textarea rows={5} placeholder="Опишите вашу проблему или вопрос..."
+                          className="w-full bg-white/40 border border-orange-200 rounded-xl px-4 py-3 text-foreground text-sm outline-none focus:border-orange-500/50 transition-all resize-none placeholder:text-muted-foreground/50" />
+                      </div>
+                      <button onClick={() => setSupportSent(true)}
+                        className="w-full py-3 rounded-xl bg-gradient-to-r from-orange-500 to-amber-400 text-white font-display font-bold text-sm hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+                        <Icon name="Send" size={15} />
+                        Отправить обращение
+                      </button>
                     </div>
-                  </div>
+                  ) : (
+                    <div className="text-center py-8">
+                      <div className="w-16 h-16 rounded-2xl bg-green-100 border border-green-300 flex items-center justify-center mx-auto mb-4">
+                        <Icon name="CheckCircle" size={28} className="text-green-500" />
+                      </div>
+                      <p className="font-display font-bold text-lg text-foreground mb-1">Обращение отправлено!</p>
+                      <p className="text-sm text-muted-foreground mb-5">Номер обращения: <span className="text-orange-500 font-medium">#SUP-2847</span></p>
+                      <button onClick={() => setSupportSent(false)}
+                        className="px-5 py-2.5 rounded-xl glass text-muted-foreground hover:text-foreground font-display font-semibold text-sm transition-all">
+                        Новое обращение
+                      </button>
+                    </div>
+                  )}
                 </div>
 
-                {/* Right: FAQ */}
-                <div className="lg:col-span-2">
-                  <div className="glass rounded-3xl p-6 hover-lift sticky top-6">
-                    <h3 className="font-display font-bold text-xl text-foreground mb-5 flex items-center gap-2">
-                      <Icon name="HelpCircle" size={20} className="text-amber-400" />
-                      Частые вопросы
-                    </h3>
-                    <div className="space-y-2">
-                      {faqs.map((faq, i) => (
-                        <div key={i} className={`rounded-2xl overflow-hidden transition-all duration-300 ${
-                          openFaq === i ? "bg-orange-500/10 border border-orange-500/25" : "bg-white/3 border border-white/6 hover:bg-white/5"
-                        }`}>
-                          <button onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                            className="w-full flex items-center justify-between p-4 text-left gap-3">
-                            <span className="font-display font-semibold text-sm text-foreground leading-snug">{faq.q}</span>
-                            <Icon name="ChevronDown" size={15}
-                              className={`text-orange-400 shrink-0 transition-transform duration-300 ${openFaq === i ? "rotate-180" : ""}`} />
-                          </button>
-                          {openFaq === i && (
-                            <div className="px-4 pb-4 text-sm text-muted-foreground leading-relaxed animate-fade-in border-t border-white/8 pt-3">
-                              {faq.a}
-                            </div>
-                          )}
+                {/* Способы связи */}
+                <div className="glass rounded-3xl p-6 hover-lift">
+                  <h3 className="font-display font-bold text-lg text-foreground mb-4 flex items-center gap-2">
+                    <Icon name="Phone" size={17} className="text-orange-500" />
+                    Другие способы связи
+                  </h3>
+                  <div className="grid grid-cols-2 gap-3">
+                    {[
+                      { icon: "Send", label: "Telegram", value: "@support_bot", desc: "Быстрые ответы онлайн", color: "from-blue-400 to-cyan-400", bg: "bg-blue-50 border-blue-200" },
+                      { icon: "Mail", label: "Email", value: "help@company.ru", desc: "Для официальных запросов", color: "from-orange-400 to-amber-400", bg: "bg-orange-50 border-orange-200" },
+                      { icon: "Phone", label: "Телефон", value: "+7 (800) 555-35-35", desc: "Пн–Пт, 9:00–18:00 МСК", color: "from-green-400 to-emerald-400", bg: "bg-green-50 border-green-200" },
+                      { icon: "MessageSquare", label: "ВКонтакте", value: "vk.com/company", desc: "Сообщество поддержки", color: "from-indigo-400 to-blue-400", bg: "bg-indigo-50 border-indigo-200" },
+                    ].map((c) => (
+                      <div key={c.label} className={`flex items-center gap-3 p-4 rounded-2xl border ${c.bg} hover-lift cursor-pointer transition-all`}>
+                        <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${c.color} flex items-center justify-center shrink-0`}>
+                          <Icon name={c.icon as IconName} size={17} className="text-white" />
                         </div>
-                      ))}
-                    </div>
-
-                    <div className="mt-5 pt-5 border-t border-white/8">
-                      <div className="flex items-center gap-2 mb-3">
-                        <div className="w-2.5 h-2.5 rounded-full bg-green-400 animate-pulse" />
-                        <p className="font-display font-bold text-sm text-foreground">Все системы работают</p>
+                        <div className="min-w-0">
+                          <p className="font-display font-bold text-sm text-foreground">{c.label}</p>
+                          <p className="text-xs text-muted-foreground truncate">{c.value}</p>
+                          <p className="text-[10px] text-muted-foreground/60 mt-0.5">{c.desc}</p>
+                        </div>
                       </div>
-                      <div className="grid grid-cols-3 gap-2">
-                        {["API", "Сайты", "База данных"].map((s) => (
-                          <div key={s} className="bg-green-500/10 border border-green-500/20 rounded-xl py-2 text-center">
-                            <p className="text-xs text-green-400 font-display font-semibold">{s}</p>
-                            <p className="text-[10px] text-green-400/60 mt-0.5">Работает</p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
+                    ))}
                   </div>
                 </div>
               </div>
