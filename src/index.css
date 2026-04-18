@@ -4,23 +4,23 @@
 
 @layer base {
   :root {
-    --background: 30 40% 97%;
-    --foreground: 20 20% 15%;
+    --background: 28 60% 93%;
+    --foreground: 20 25% 14%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 20 20% 15%;
+    --card: 28 55% 97%;
+    --card-foreground: 20 25% 14%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 20 20% 15%;
+    --popover: 28 55% 97%;
+    --popover-foreground: 20 25% 14%;
 
     --primary: 25 95% 55%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 30 30% 93%;
-    --secondary-foreground: 20 20% 15%;
+    --secondary: 28 40% 88%;
+    --secondary-foreground: 20 25% 14%;
 
-    --muted: 30 25% 93%;
-    --muted-foreground: 20 12% 48%;
+    --muted: 28 40% 88%;
+    --muted-foreground: 20 12% 46%;
 
     --accent: 35 100% 55%;
     --accent-foreground: 0 0% 100%;
@@ -28,8 +28,8 @@
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 30 20% 88%;
-    --input: 30 20% 88%;
+    --border: 28 30% 83%;
+    --input: 28 30% 83%;
     --ring: 25 95% 55%;
 
     --radius: 1rem;
@@ -39,13 +39,13 @@
     --neon-red: #ef4444;
     --neon-yellow: #fbbf24;
 
-    --sidebar-background: 25 30% 98%;
-    --sidebar-foreground: 20 20% 25%;
+    --sidebar-background: 28 50% 96%;
+    --sidebar-foreground: 20 20% 22%;
     --sidebar-primary: 25 95% 55%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 30 25% 93%;
-    --sidebar-accent-foreground: 20 20% 25%;
-    --sidebar-border: 30 20% 88%;
+    --sidebar-accent: 28 40% 90%;
+    --sidebar-accent-foreground: 20 20% 22%;
+    --sidebar-border: 28 30% 83%;
     --sidebar-ring: 25 95% 55%;
   }
 }
@@ -67,10 +67,10 @@
   }
 
   .glass {
-    background: rgba(255, 255, 255, 0.75);
+    background: rgba(255, 245, 235, 0.7);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(249, 115, 22, 0.12);
-    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(249, 115, 22, 0.15);
+    box-shadow: 0 2px 16px rgba(180, 80, 0, 0.07);
   }
 
   .glass-active {
@@ -101,13 +101,18 @@
   .mesh-bg {
     background:
       radial-gradient(
-        ellipse 70% 50% at 10% 0%,
-        rgba(249, 115, 22, 0.08) 0%,
+        ellipse 70% 50% at 5% 0%,
+        rgba(249, 115, 22, 0.18) 0%,
         transparent 60%
       ),
       radial-gradient(
-        ellipse 60% 40% at 90% 100%,
-        rgba(245, 158, 11, 0.07) 0%,
+        ellipse 60% 40% at 95% 100%,
+        rgba(245, 158, 11, 0.14) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse 50% 50% at 50% 50%,
+        rgba(251, 191, 36, 0.08) 0%,
         transparent 60%
       );
   }
